@@ -5,12 +5,17 @@
 <head>
     <meta charset="utf-8" />
     <title>DotVVMSignalRSample</title>
+    <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/lib/font-awesome/css/all.min.css" rel="stylesheet" />
 </head>
 <body>
 
  	
-
-	<dot:ContentPlaceHolder ID="MainContent" />
+    <div class="container">
+        <div class="row">
+            <dot:ContentPlaceHolder ID="MainContent" />
+        </div>
+    </div>
 
 </body>
 </html>

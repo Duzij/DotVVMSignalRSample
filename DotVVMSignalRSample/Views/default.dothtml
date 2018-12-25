@@ -2,5 +2,83 @@
 @masterPage Views/MasterPage.dotmaster
 <dot:Content ContentPlaceHolderID="MainContent">
 
-	<h1>{{value: Title}}</h1>
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-6">
+        <h1>{{value: Title}}</h1>
+
+        <form ID="form">
+            <div class="form-group">
+                <label for="email">Email address:</label>
+                <input type="email" class="form-control" id="email">
+            </div>
+            <div class="form-group">
+                <label for="pwd">Password:</label>
+                <input type="password" class="form-control" id="pwd">
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox"> Remember me
+                </label>
+            </div>
+            <button ID="sendButton" type="submit" class="btn btn-primary">
+                Submit
+                <i id="send-icon" class="fas fa-angle-right"></i>
+                <i ID="loading-icon" class="fas fa-spinner fa-spin"></i>
+                <i id="posted-icon" class="fas fa-check"></i>
+            </button>
+        </form>
+    </div>
+
+    <script src="/lib/jquery/jquery.js"></script>
+    <script src="/lib/signalr/signalr.js"></script>
+    <script src="/lib/font-awesome/js/all.min.js"></script>
+    <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+
+    <script>
+        "use strict";
+        var connection = new signalR.HubConnectionBuilder().withUrl("/testHub").build();
+
+        function ShowInitial() {
+            $("#send-icon").show();
+            $("#loading-icon").hide();
+            $("#posted-icon").hide();
+        }
+
+        function ShowLoading() {
+            $("#send-icon").hide();
+            $("#loading-icon").show();
+            $("#posted-icon").hide();
+        }
+
+        function ShowPosted() {
+            $("#send-icon").hide();
+            $("#loading-icon").hide();
+            $("#posted-icon").show();
+        }
+
+        connection.on("FormSended", function () {
+            $('#form').trigger("reset");
+
+            ShowPosted();
+
+        });
+
+        connection.start().catch(function (err) {
+            return console.error(err.toString());
+        });
+
+        document.getElementById("sendButton").addEventListener("click", function (event) {
+            ShowLoading();
+
+            connection.invoke("FormPosted").catch(function (err) {
+                return console.error(err.toString());
+            });
+            event.preventDefault();
+        });
+
+
+        ShowInitial();
+    </script>
+
 </dot:Content>

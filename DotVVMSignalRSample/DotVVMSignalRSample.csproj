@@ -2,6 +2,7 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp2.0</TargetFramework>
         <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+        <TypeScriptToolsVersion>3.0</TypeScriptToolsVersion>
     </PropertyGroup>
     <ItemGroup>
         <!--Include Views-->
@@ -18,19 +19,33 @@
         </Content>
     </ItemGroup>
     <ItemGroup>
+      <Compile Remove="Resources\**" />
+      <Content Remove="Resources\**" />
+      <EmbeddedResource Remove="Resources\**" />
+      <None Remove="Resources\**" />
+    </ItemGroup>
+    <ItemGroup>
         <None Remove="dotvvm_serialized_config.json.tmp" />
         <None Remove="Views\MasterPage.dotmaster" />
     </ItemGroup>
     <ItemGroup>
-        <Folder Include="wwwroot\" />
-    </ItemGroup>
-    <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore" Version="2.0.3" />
-        <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.3" />
-        <PackageReference Include="DotVVM.AspNetCore" Version="2.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0-preview3-35497" />
+        <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0-preview3-35497" />
+        <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0-preview3-35497" />
+        <PackageReference Include="DotVVM.AspNetCore" Version="2.0.3" />
         
     </ItemGroup>
     <ItemGroup>
         <DotNetCliToolReference Include="DotVVM.Compiler.Light" Version="2.0.0" />
+    </ItemGroup>
+    <ItemGroup>
+      <None Include="wwwroot\lib\signalr\signalr.js" />
+      <None Include="wwwroot\lib\signalr\signalr.js.map" />
+      <None Include="wwwroot\lib\signalr\signalr.min.js" />
+      <None Include="wwwroot\lib\signalr\signalr.min.js.map" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="wwwroot\lib\font-awesome\" />
+      <Folder Include="wwwroot\lib\bootstrap\" />
     </ItemGroup>
 </Project>

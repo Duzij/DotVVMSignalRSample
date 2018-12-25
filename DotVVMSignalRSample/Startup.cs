@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 using DotVVM.Framework.Hosting;
+using DotVVMSignalRSample.Hubs;
 
 namespace DotVVMSignalRSample
 {
@@ -20,6 +21,7 @@ namespace DotVVMSignalRSample
             services.AddDataProtection();
             services.AddAuthorization();
             services.AddWebEncoders();
+            services.AddSignalR();
             services.AddDotVVM();
         }
 
@@ -35,6 +37,11 @@ namespace DotVVMSignalRSample
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(env.WebRootPath)
+            });
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<TestHub>("/testHub");
             });
         }
     }

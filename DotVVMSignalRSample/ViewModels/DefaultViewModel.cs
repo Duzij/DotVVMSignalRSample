@@ -13,9 +13,14 @@ namespace DotVVMSignalRSample.ViewModels
     {
 		public string Title { get; set;}
 
-		public DefaultViewModel()
+        public DefaultViewModel()
 		{
 			Title = "Hello from DotVVM!";
 		}
+
+        public void ChangeTitle(string title)
+        {
+            Title = title;
+        }
     }
 }
